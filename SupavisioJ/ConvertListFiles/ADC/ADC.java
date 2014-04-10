@@ -1,4 +1,4 @@
-package ConvertListFiles.ADC;
+package SupavisioJ.ConvertListFiles.ADC;
 import java.util.ArrayList;
 import ij.*;
 import java.io.*;
@@ -294,31 +294,7 @@ public ArrayList<Integer> medianSort(){
 	}
 	return  median;
 }
-/**
- * Sort event according to X,Y and process median energy map
- * @return median, a list of integer corresponding to median energy in pixel
- */
 
-public ArrayList<Integer> makeRoiMap(){
-//methode en cours de developpement
-	try{
-            initializeRoiMap();
-            for (int i=1;i<getNEvents();i++){
-		int index=(int)getX(i)+256*(int)getY(i)+1;
-		try{
-                    if (getE(i)>280 & getE(i) <320) roiMap.set(index,roiMap.get(index)+1);
-		}
-		catch(Exception e){
-                    IJ.log("roimap.g "+e.toString());
-		}
-            }
-	}
-	catch (Exception e){
-            IJ.log(e.toString());
-	}
-
-	return  roiMap;
-}
 /**
  * Save median map as a 2D text file
  * @param path filename for 2D text file
@@ -327,22 +303,6 @@ public void saveMedianTextImage(String path){
 	try{
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(path)));
 		
-		for (int x=2;x<sizeMapX;x++) {
-			String line="";
-			for (int y=1;y<sizeMapY;y++){
-				line+=String.valueOf(median.get(x+sizeMapX*y))+" ";
-			}
-			out.println(line);
-		}
-		out.close();
-	}
-	catch (Exception e){
-	}
-}
-public void saveRoiTextImage(String path){
-	try{
-		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(path)));
-
 		for (int x=2;x<sizeMapX;x++) {
 			String line="";
 			for (int y=1;y<sizeMapY;y++){

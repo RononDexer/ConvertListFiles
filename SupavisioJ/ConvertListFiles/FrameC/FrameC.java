@@ -8,9 +8,9 @@
  *
  * Created on 8 juin 2011, 16:41:16
  */
-package ConvertListFiles.FrameC;
+package SupavisioJ.ConvertListFiles.FrameC;
 
-import ConvertListFiles.ActionsC.ActionsC;
+import SupavisioJ.ConvertListFiles.ActionsC.ActionsC;
 import javax.swing.AbstractButton;
 
 /**

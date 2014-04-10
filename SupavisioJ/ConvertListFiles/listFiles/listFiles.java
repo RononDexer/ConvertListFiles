@@ -1,7 +1,8 @@
-package ConvertListFiles.listFiles;
+package SupavisioJ.ConvertListFiles.listFiles;
 
-import ConvertListFiles.MPA3.MPA3;
 import java.io.*;
+import ij.*;
+import SupavisioJ.ConvertListFiles.MPA3.MPA3;
 
 
 
@@ -53,36 +54,27 @@ public listFiles(String path, int adcIndexScanX, int adcIndexScanY){
  * Sorts a list file
  * @return  A sorted list of MPA according to ADC
  */
+ 
+public boolean isReadingHeader(DataInputStream ips) throws Exception {
+  boolean flag=true;
+  //Discards header searching for '[Listdata]'
+    if (ips.readUnsignedByte()==91 && ips.readUnsignedByte()==76 && ips.readUnsignedByte()==73 && ips.readUnsignedByte()==83 && ips.readUnsignedByte()==84){
+        if (ips.readUnsignedByte()==68 && ips.readUnsignedByte()==65 && ips.readUnsignedByte()==84 && ips.readUnsignedByte()==65 && ips.readUnsignedByte()==93){
+            flag=false;
+        }
+    }
+    return flag;
+}
+
+ 
 public MPA3 readListFile(){
 	MPA3 mpa=new MPA3();
 	try{
-		DataInputStream ips=new DataInputStream(new BufferedInputStream(new FileInputStream(path))); 
-		//Discards header searching for '[Listdata]' 
-		boolean flag=false;
-		while (flag==false){
-			int i=ips.readUnsignedByte();
-			if (i==91){
-				if (ips.readUnsignedByte()==76){
-					if (ips.readUnsignedByte()==73){
-						if (ips.readUnsignedByte()==83){
-							if (ips.readUnsignedByte()==84){
-								if (ips.readUnsignedByte()==68){
-									if (ips.readUnsignedByte()==65){
-										if (ips.readUnsignedByte()==84){
-											if (ips.readUnsignedByte()==65){
-												if (ips.readUnsignedByte()==93){
-													flag=true;
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+		DataInputStream ips=new DataInputStream(new BufferedInputStream(new FileInputStream(path)));  
+		while(isReadingHeader(ips)){
+                    IJ.log("Reading header");
 		}
+                
 		ips.readUnsignedByte();
 		
 		//Reset timer tags counter

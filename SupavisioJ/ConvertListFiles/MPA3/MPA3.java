@@ -1,6 +1,6 @@
-package ConvertListFiles.MPA3;
+package SupavisioJ.ConvertListFiles.MPA3;
 import java.util.ArrayList;
-import ConvertListFiles.ADC.ADC;
+import SupavisioJ.ConvertListFiles.ADC.ADC;
 
 /**
  * 
